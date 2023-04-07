@@ -1,5 +1,5 @@
 
-//const URI = "http://54.201.89.155:8080/api/workout"
+//const URI = "http://54.201.89.155:8080/api/userWorkouts"
 
 const WorkoutApi = {
 
@@ -66,4 +66,4 @@ const WorkoutApi = {
 }
 
 // allows you to use this object outside of this file
-export default ProductApi;
+export default WorkoutApi;
