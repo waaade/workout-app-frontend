@@ -1,38 +1,36 @@
 
-//const URI = "http://54.201.89.155:8080/api/workout"
+// const URI = "http://54.201.89.155:8080/api"
+ const URI = "http://localhost:3000/api"
 
 const WorkoutApi = {
 
-    getWorkouts: (setWorkoutList) => {
-
-        // fetch -> promise based library within JS that helps you make API calls
-
-        // fetch(URI) -> retrieve data at this uri (assume a GET request unless stated otherwise)
-        fetch( URI )
-            .then( (result) => {      // go here if request successful (200 response)
-
-                console.log("RESULT")
-                console.log(result)
-
-                return result.json() // data in next section
-            } )
-            .then( (data) => {
-
-                console.log("DATA:")
+    getAllUserWorkouts: (setWorkoutList) => {
+        fetch(`${URI}/userWorkouts`)
+            .then(response => response.json())
+            .then(data => {
+                console.log("WORKOUTS RETRIEVED")
                 console.log(data)
-
                 setWorkoutList(data)
-
-            } )
-            .catch( (error) => { console.log(error) } ); // if fetch fails, go here (400/500 responses)
-        
+            })
+            .catch(error => console.error(error));
     },
-
+    
+    getUserWorkoutById: (id, setUserWorkout) => {
+        fetch(`${URI}/userWorkouts/${id}`)
+        .then(response => response.json())
+        .then(data => {
+        console.log("WORKOUT RETRIEVED")
+        console.log(data)
+        setUserWorkout(data)
+        })
+        .catch(error => console.error(error));
+    },
+    
     createWorkout: (workoutToCreate) => {
 
         // fetch( uri for request, request object )
         // TODO make sure to change this to handle username also
-        fetch( URI, {
+        fetch(`${URI}/userWorkouts`, {
             method: "POST", // type of request
             headers: { "Content-Type": "application/json" }, // header of request
             body: JSON.stringify(workoutToCreate) // body of request, convert object to json string
@@ -55,15 +53,55 @@ const WorkoutApi = {
 
     },
 
-    deleteWorkout: () => {
-
+    // TODO make sure to change this to handle username also
+    deleteWorkout: (workoutId) => {
+        fetch(`${URI}/userWorkouts/${workoutId}`, {
+            method: "DELETE", // type of request
+            headers: { "Content-Type": "application/json" }, // header of request
+        })
+        .then((response) => {
+            if (response.status === 204) {
+                console.log("WORKOUT DELETED");
+                // the workout was deleted, so we alert the user
+                alert(`Your workout with ID ${workoutId} was deleted!`);
+            } else {
+                console.log(`Error deleting workout with ID ${workoutId}: ${response.status}`);
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+        });
     },
-
-    updateWorkout: () => {
-
-    }
-
+      
+    // TODO make sure to change this to handle username also
+    updateWorkout: (workoutToUpdate) => {
+        fetch(`${URI}/userWorkouts/${workoutToUpdate.id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(workoutToUpdate)
+        })
+          .then(result => result.json())
+          .then(data => {
+            console.log('WORKOUT UPDATED');
+            console.log(data);
+      
+            // the workout was updated, so we alert the user
+            alert('Your workout was updated!' +
+              `\nID: ${data.id}` +
+              `\nExercise: ${data.exercise}` +
+              `\nReps: ${data.reps}` +
+              `\nWeight: ${data.weight}`
+            );
+      
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+     
 }
 
 // allows you to use this object outside of this file
-export default ProductApi;
+export default WorkoutApi;
