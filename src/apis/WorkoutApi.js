@@ -1,9 +1,9 @@
 
-//const URI = "http://54.201.89.155:8080/api/product"
+//const URI = "http://54.201.89.155:8080/api/workout"
 
 const WorkoutApi = {
 
-    getProducts: (setWorkoutList) => {
+    getWorkouts: (setWorkoutList) => {
 
         // fetch -> promise based library within JS that helps you make API calls
 
@@ -45,9 +45,9 @@ const WorkoutApi = {
                  // the workout was created, so we alert the user
                 alert("Your workout was created!" + 
                     `\nID: ${data.id}` +
-                    `\nName: ${data.exercise}` + 
-                    `\nPrice: ${data.reps}` +
-                    `\nQuantity: ${data.weight}`
+                    `\nExercise: ${data.exercise}` + 
+                    `\nReps: ${data.reps}` +
+                    `\nWeight: ${data.weight}`
                     )
 
             } )
@@ -55,11 +55,11 @@ const WorkoutApi = {
 
     },
 
-    deleteProduct: () => {
+    deleteWorkout: () => {
 
     },
 
-    updateProduct: () => {
+    updateWorkout: () => {
 
     }
 

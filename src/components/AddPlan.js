@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 //import ProductApi from '../apis/ProductApi';
 
+// temporary dummy username
+const dummyUsername = "Joe";
+
 const AddPlan = () => {
 
     const[ exercise, setExercise ] = useState("")
     const[ reps, setReps ] = useState(0)
     const[ weight, setWeight ] = useState(0)
     const[ date, setDate ] = useState("")
+    const[username, setUsername ] = useState(dummyUsername)
 
     // called when form is submitted
     // TODO
@@ -17,6 +21,7 @@ const AddPlan = () => {
             "reps": reps,
             "weight": weight,
             "date": date,
+            "username": dummyUsername
         }
 
         // make a POST request here to create the product
