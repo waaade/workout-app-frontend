@@ -2,7 +2,7 @@ const URI = "http://localhost:8080/api"
 
 const WorkoutExerciseApi = {
 
-    getAllWorkoutsExercises: (setWorkoutList, token) => {
+    getAllWorkoutsExercises: (setWorkoutExerciseList, token) => {
         const request = URI + "/workoutExercises";
         const authString = "Bearer " + (token.token.jwt).toString();
         console.log(authString);
@@ -21,7 +21,7 @@ const WorkoutExerciseApi = {
             .catch(error => console.error(error));
     },
 
-    getWorkoutExerciseById: (id, setUserWorkout, token) => {
+    getWorkoutExerciseById: (id, setWorkoutExercise, token) => {
         const request = URI + "/workoutExercises/{id}";
         const authString = "Bearer " + (token.token.jwt).toString();
         console.log(authString);
@@ -45,7 +45,7 @@ const WorkoutExerciseApi = {
             .catch(error => console.error(error));
     },
 
-    createWorkoutExercise: (workoutToCreate, token) => {
+    createWorkoutExercise: (workoutExerciseToCreate, token) => {
         const request = URI + "/workoutExercises";
         const authString = "Bearer " + (token.token.jwt).toString();
         console.log(authString);
@@ -64,8 +64,8 @@ const WorkoutExerciseApi = {
     },
 
     // TODO make sure to change this to handle username also
-    deleteWorkout: (workoutId, token) => {
-        const request = URI + "/workoutExercises/{workoutId}";
+    deleteWorkout: (workoutExerciseId, token) => {
+        const request = URI + "/workoutExercises/{workoutExerciseId}";
         const authString = "Bearer " + (token.token.jwt).toString();
         console.log(authString);
         fetch(request, {
@@ -88,7 +88,7 @@ const WorkoutExerciseApi = {
     },
 
     // TODO make sure to change this to handle username also
-    updateWorkout: (workoutToUpdate, token) => {
+    updateWorkout: (workoutExerciseToUpdate, token) => {
         const request = URI + "/workoutExercises/{workoutToUpdate.id}";
         const authString = "Bearer " + (token.token.jwt).toString();
         console.log(authString);

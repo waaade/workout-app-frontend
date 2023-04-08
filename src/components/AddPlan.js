@@ -1,20 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import WorkoutApi from '../apis/WorkoutApi';
+import ExercisesApi from '../apis/ExercisesApi';
 
 // temporary dummy username
 const dummyUsername = "Joe";
 
 const AddPlan = (token) => {
-    console.log(JSON.stringify(token));
-    const[ exercise, setExercise ] = useState("")
-    const[ reps, setReps ] = useState(0)
-    const[ weight, setWeight ] = useState(0)
-    const[ date, setDate ] = useState("")
+    // console.log(JSON.stringify(token));
+    const [exercise, setExercise ] = useState("")
+    const [exerciseList, setExerciseList] = useState([])
+    const [reps, setReps] = useState(0)
+    const [weight, setWeight] = useState(0)
+    const [date, setDate] = useState("")
+
+    useEffect( () => {
+    
+       // populate exericse field
+        ExercisesApi.getAllExercises(setExerciseList, token);
+       
+    }, [] )
+    
 
     // called when form is submitted
     // TODO
     const handleSubmit = (event) => { // event -> represents the event of submitting the form
-
         const workout = {
             "exercise": exercise,
             "reps": reps,
@@ -23,8 +32,8 @@ const AddPlan = (token) => {
             "username": dummyUsername
         }
 
-        // make a POST request here to create the product
-        WorkoutApi.createWorkout(workout)
+        // make a POST request here to create the workout
+        //WorkoutApi.createWorkout(workout)
 
         // stop the page from refreshing/reloading when submitting the form
         event.preventDefault()
@@ -39,14 +48,16 @@ const AddPlan = (token) => {
                     <label htmlFor='wo-exercise' className='form-label' >
                         Exercise
                     </label>
-                    <input type="text"
+                    <select 
                            className='form-control'
                            id='wo-exercise'
                            required
                            name="wo-exercise"
-                           value={exercise}
-                           onChange={ (event) => { setExercise(event.target.value) } }
-                        />
+                           onChange={ (event) => { setExercise(event.target.value) } }>
+                            {exerciseList.map( e =>
+                                <option value={e.id}>{e.exerciseType}</option>)
+                            }
+                           </select>
                 </div>
 
                 <div>
@@ -72,7 +83,6 @@ const AddPlan = (token) => {
                     <input type="number"
                            className='form-control'
                            id='wo-weight'
-                           required
                            min="1"
                            step="1"
                            name="wo-weight"
