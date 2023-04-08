@@ -4,11 +4,10 @@ const WorkoutApi = {
 
     getAllUserWorkouts: (setWorkoutList, token) => {
         const request = URI + "/userWorkouts";
-        const authString = "Bearer " + JSON.stringify(token.token.jwt);
+        const authString = "Bearer " + (token.token.jwt).toString();
         console.log(authString);
         fetch(request, {
             headers: { 
-                 "Content-Type": "application/json",
                  "Authorization": authString}
         })
         
@@ -21,8 +20,12 @@ const WorkoutApi = {
             .catch(error => console.error(error));
     },
     
-    getUserWorkoutById: (id, setUserWorkout) => {
-        fetch(`${URI}/userWorkouts/${id}`)
+    getUserWorkoutById: (id, setUserWorkout, token) => {
+        const authString = "Bearer " + (token.token.jwt).toString();
+        fetch(`${URI}/userWorkouts/${id}`, {
+            headers: { 
+            "Authorization": authString}
+        })
         .then(response => response.json())
         .then(data => {
         console.log("WORKOUT RETRIEVED")
@@ -33,13 +36,13 @@ const WorkoutApi = {
     },
     
     createWorkout: (workoutToCreate, token) => {
-
+        const authString = "Bearer " + (token.token.jwt).toString();
         // fetch( uri for request, request object )
         // TODO make sure to change this to handle username also
         fetch(`${URI}/userWorkouts`, {
             method: "POST", // type of request
             headers: { "Content-Type": "application/json",
-                        "Authorization": "Bearer " + token.jwt }, // header of request
+                        "Authorization": authString }, // header of request
             body: JSON.stringify(workoutToCreate) // body of request, convert object to json string
         } )
             .then( result => result.json() )
@@ -61,10 +64,12 @@ const WorkoutApi = {
     },
 
     // TODO make sure to change this to handle username also
-    deleteWorkout: (workoutId) => {
+    deleteWorkout: (workoutId, token) => {
+        const authString = "Bearer " + (token.token.jwt).toString();
         fetch(`${URI}/userWorkouts/${workoutId}`, {
             method: "DELETE", // type of request
-            headers: { "Content-Type": "application/json" }, // header of request
+            headers: { "Content-Type": "application/json",
+                        "Authorization": authString }, // header of request
         })
         .then((response) => {
             if (response.status === 204) {
@@ -81,11 +86,13 @@ const WorkoutApi = {
     },
       
     // TODO make sure to change this to handle username also
-    updateWorkout: (workoutToUpdate) => {
+    updateWorkout: (workoutToUpdate, token) => {
+        const authString = "Bearer " + (token.token.jwt).toString();
         fetch(`${URI}/userWorkouts/${workoutToUpdate.id}`, {
           method: 'PUT',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            "Authorization": authString
           },
           body: JSON.stringify(workoutToUpdate)
         })
