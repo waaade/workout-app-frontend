@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 
 async function LoginUser(credentials) {
     console.log("Attempting to login with username " + credentials.username + " and password " + credentials.password);
@@ -8,19 +9,20 @@ async function LoginUser(credentials) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(credentials)
-    }).then(data => data.json())
+    }).then(data => data.json());
 }
 
 const Login = ({setToken}) => {
-    const [username, setUsername] = useState()
-    const [password, setPassword] = useState()
+    const [username, setUsername] = useState();
+    const [password, setPassword] = useState();
     
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         const token = await LoginUser({
             username, 
-            password})
-        setToken(token)
+            password
+        });
+        setToken(token);
     }
     
 
@@ -39,6 +41,10 @@ const Login = ({setToken}) => {
         </div>
         </>
     )
+}
+
+Login.propTypes = {
+    setToken: PropTypes.func.isRequired
 }
     
 export default Login;

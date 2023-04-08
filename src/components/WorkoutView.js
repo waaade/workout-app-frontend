@@ -35,10 +35,10 @@ const workoutDummyList = [
     }
 ]
 
-const WorkoutView = () => {
+const WorkoutView = (token) => {
 
-    // productList -> state variable
-    // setProductList -> function that changes the value of productList
+    // workoutList -> state variable
+    // setWorkoutList -> function that changes the value of productList
     // useState( [] ) -> helps set up state, sets state as an empty array
     const [workoutList, setWorkoutList] = useState([])
 

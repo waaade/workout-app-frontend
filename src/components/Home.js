@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 
-const Home = () => {
+const Home = (token) => {
     return (
         <div>
             <h2>Welcome</h2>
