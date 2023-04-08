@@ -4,13 +4,13 @@ import Header from './components/Header';
 import WorkoutView from './components/WorkoutView';
 import Home from './components/Home';
 import AddPlan from './components/AddPlan';
-//import useToken from './useToken';
+import useToken from './useToken';
 import Login from './components/Login';
 
 import './App.css';
 
 function App() {
-  const [token, setToken] = useState();
+  const [token, setToken] = useState('');
   // const {token, setToken} = useToken();
   if (!token){
     return <Login setToken={setToken}/>

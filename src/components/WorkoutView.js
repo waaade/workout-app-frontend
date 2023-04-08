@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-//import ProductApi from '../apis/ProductApi';
+import WorkoutApi from '../apis/WorkoutApi';
 
 // UserWorkout table dummy
 const workoutDummyList = [
@@ -49,7 +49,7 @@ const WorkoutView = (token) => {
     useEffect( () => {
         console.log("Hello, this component was mounted!")
 
-        //WorkoutApi.getWorkouts(setWorkoutList)
+        WorkoutApi.getAllUserWorkouts(setWorkoutList, token)
        
 
     }, [] )

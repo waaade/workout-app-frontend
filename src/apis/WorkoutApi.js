@@ -2,9 +2,16 @@ const URI = "http://localhost:3000/api"
 
 const WorkoutApi = {
 
-    getAllUserWorkouts: (setWorkoutList) => {
-        fetch(`${URI}/userWorkouts`)
-            .then(response => response.json())
+    getAllUserWorkouts: (setWorkoutList, token) => {
+        const request = URI + "/userWorkouts";
+        const authString = "Bearer " + (token.token.jwt).toString();
+        console.log(authString);
+        fetch(request, {
+            headers: { 
+                 "Authorization": authString}
+        })
+        
+            //.then(response => response.json())
             .then(data => {
                 console.log("WORKOUTS RETRIEVED")
                 console.log(data)
@@ -24,13 +31,14 @@ const WorkoutApi = {
         .catch(error => console.error(error));
     },
     
-    createWorkout: (workoutToCreate) => {
+    createWorkout: (workoutToCreate, token) => {
 
         // fetch( uri for request, request object )
         // TODO make sure to change this to handle username also
         fetch(`${URI}/userWorkouts`, {
             method: "POST", // type of request
-            headers: { "Content-Type": "application/json" }, // header of request
+            headers: { "Content-Type": "application/json",
+                        "Authorization": "Bearer " + token.jwt }, // header of request
             body: JSON.stringify(workoutToCreate) // body of request, convert object to json string
         } )
             .then( result => result.json() )

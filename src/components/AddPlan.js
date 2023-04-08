@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-//import ProductApi from '../apis/ProductApi';
+import WorkoutApi from '../apis/WorkoutApi';
 
 // temporary dummy username
 const dummyUsername = "Joe";
 
 const AddPlan = (token) => {
-
+    console.log(JSON.stringify(token));
     const[ exercise, setExercise ] = useState("")
     const[ reps, setReps ] = useState(0)
     const[ weight, setWeight ] = useState(0)
     const[ date, setDate ] = useState("")
-    const[username, setUsername ] = useState(dummyUsername)
 
     // called when form is submitted
     // TODO
@@ -25,7 +24,7 @@ const AddPlan = (token) => {
         }
 
         // make a POST request here to create the product
-        // ProductApi.createProduct(prod)
+        WorkoutApi.createWorkout(workout)
 
         // stop the page from refreshing/reloading when submitting the form
         event.preventDefault()
