@@ -1,6 +1,6 @@
 const URI = "http://localhost:8080/api"
 
-const WorkoutApi = {
+const WorkoutExerciseApi = {
 
     getAllWorkoutsExercises: (setWorkoutList, token) => {
         const request = URI + "/workoutExercises";
