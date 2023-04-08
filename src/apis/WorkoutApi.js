@@ -1,17 +1,18 @@
-const URI = "http://localhost:3000/api"
+const URI = "http://localhost:8080/api"
 
 const WorkoutApi = {
 
     getAllUserWorkouts: (setWorkoutList, token) => {
         const request = URI + "/userWorkouts";
-        const authString = "Bearer " + (token.token.jwt).toString();
+        const authString = "Bearer " + JSON.stringify(token.token.jwt);
         console.log(authString);
         fetch(request, {
             headers: { 
+                 "Content-Type": "application/json",
                  "Authorization": authString}
         })
         
-            //.then(response => response.json())
+            .then(response => response.json())
             .then(data => {
                 console.log("WORKOUTS RETRIEVED")
                 console.log(data)
