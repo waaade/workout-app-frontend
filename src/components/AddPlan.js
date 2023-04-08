@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 // temporary dummy username
 const dummyUsername = "Joe";
 
-const AddPlan = () => {
+const AddPlan = (token) => {
 
     const[ exercise, setExercise ] = useState("")
     const[ reps, setReps ] = useState(0)

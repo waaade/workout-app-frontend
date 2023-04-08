@@ -1,6 +1,4 @@
-
-// const URI = "http://54.201.89.155:8080/api"
- const URI = "http://localhost:3000/api"
+const URI = "http://localhost:3000/api"
 
 const WorkoutApi = {
 
