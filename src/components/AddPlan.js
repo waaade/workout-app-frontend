@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import WorkoutApi from '../apis/WorkoutApi';
 import ExercisesApi from '../apis/ExercisesApi';
-
-// temporary dummy username
-const dummyUsername = "Joe";
+import WorkoutExerciseApi from '../apis/WorkoutExercisesApi';
 
 const AddPlan = (token) => {
     // console.log(JSON.stringify(token));
@@ -18,22 +16,23 @@ const AddPlan = (token) => {
        // populate exericse field
         ExercisesApi.getAllExercises(setExerciseList, token);
        
-    }, [] )
+    }, [token] )
     
 
     // called when form is submitted
     // TODO
     const handleSubmit = (event) => { // event -> represents the event of submitting the form
         const workout = {
-            "exercise": exercise,
+            "exerciseId": exercise,
+            "userWorkoutId": 9, // TODO we need to get this first
             "reps": reps,
             "weight": weight,
-            "date": date,
-            "username": dummyUsername
         }
+        //"date": date,
+        //"userId": 2      TODO
 
         // make a POST request here to create the workout
-        //WorkoutApi.createWorkout(workout)
+        WorkoutExerciseApi.createWorkoutExercise(workout, token);
 
         // stop the page from refreshing/reloading when submitting the form
         event.preventDefault()
@@ -48,7 +47,7 @@ const AddPlan = (token) => {
                     <label htmlFor='wo-exercise' className='form-label' >
                         Exercise
                     </label>
-                    <select 
+                    <select value = {exercise}
                            className='form-control'
                            id='wo-exercise'
                            required

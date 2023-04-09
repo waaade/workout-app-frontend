@@ -1,6 +1,6 @@
 const URI = "http://localhost:8080/api"
 
-const WorkoutExerciseApi = {
+const WorkoutExercisesApi = {
 
     getAllWorkoutsExercises: (setWorkoutExerciseList, token) => {
         const request = URI + "/workoutExercises";
@@ -16,7 +16,7 @@ const WorkoutExerciseApi = {
             .then(data => {
                  console.log("WORKOUT EXERCISES RETRIEVED")
             console.log(data)
-            setWorkoutList(data)
+            setWorkoutExerciseList(data)
         })
             .catch(error => console.error(error));
     },
@@ -77,9 +77,9 @@ const WorkoutExerciseApi = {
             if (response.status === 204) {
                 console.log("WORKOUT EXERCISE DELETED");
                 // the workout was deleted, so we alert the user
-                alert(`Your workout exercise with ID ${workoutId} was deleted!`);
+                alert(`Your workout exercise with ID ${workoutExerciseId} was deleted!`);
             } else {
-                console.log(`Error deleting workout exercise with ID ${workoutId}: ${response.status}`);
+                console.log(`Error deleting workout exercise with ID ${workoutExerciseId}: ${response.status}`);
             }
         })
         .catch((error) => {
@@ -110,3 +110,5 @@ const WorkoutExerciseApi = {
 
 
 }
+
+export default WorkoutExercisesApi;
