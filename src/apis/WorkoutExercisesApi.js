@@ -1,4 +1,5 @@
 const URI = "http://localhost:8080/api"
+// "http://3.94.133.232:8080/api/"
 
 const WorkoutExercisesApi = {
 
@@ -71,6 +72,7 @@ const WorkoutExercisesApi = {
         const authString = "Bearer " + (token.token.jwt).toString();
         console.log(authString);
         fetch(request, {
+            method: 'DELETE',
             headers: { 
                  "Content-Type": "application/json",
                  "Authorization": authString}
