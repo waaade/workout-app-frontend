@@ -26,7 +26,6 @@ const WorkoutExercisesApi = {
         const authString = "Bearer " + (token.token.jwt).toString();
         console.log(authString);
         fetch(request, {
-            mode: 'no-cors',
             headers: { 
                  "Content-Type": "application/json",
                  "Authorization": authString}
