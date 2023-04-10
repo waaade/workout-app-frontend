@@ -4,6 +4,7 @@ import WorkoutExercisesApi from '../apis/WorkoutExercisesApi';
 
 
 const WorkoutView = (token) => {
+    console.log(token)
     
 
     // workoutList -> state variable
@@ -30,7 +31,7 @@ const WorkoutView = (token) => {
 
     useEffect(() => {
 
-        const currentUsersWE = workoutExerciseList.filter((we) => we.workoutId.userId.id === token.id);
+        const currentUsersWE = workoutExerciseList.filter((we) => we.workoutId.userId.id === token.userId);
         currentUsersWE.reverse();
 
         setCurrentWorkoutExercises(currentUsersWE);

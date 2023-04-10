@@ -4,6 +4,7 @@ import ExercisesApi from '../apis/ExercisesApi';
 import WorkoutExerciseApi from '../apis/WorkoutExercisesApi';
 
 const AddPlan = (token, userId) => {
+    console.log(token)
     // console.log(JSON.stringify(token));
     const [exercise, setExercise ] = useState("")
     const [exerciseList, setExerciseList] = useState([])
@@ -27,7 +28,7 @@ const AddPlan = (token, userId) => {
     
     const handleSubmit = (event) => { // event -> represents the event of submitting the form
         // create new workout in UserWorkout
-        const theUser = 2; 
+        const theUser = token.userId; 
         if (workout === "new") {
             const userWorkoutToPost = {
                 "userId": theUser,
