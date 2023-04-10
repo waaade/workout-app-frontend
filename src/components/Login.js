@@ -58,7 +58,7 @@ const Login = ({setToken, setUserId, setName}) => {
     return (
         <>
         <div className='login'>
-            <h2>Login</h2>
+            <h2 className="display-1">Login</h2>
             <form onSubmit={handleSubmit}>
             
                 <div style={{maxWidth: '400px', display: 'flex', flexDirection: 'column', alignItems: 'center', margin: 'auto'}} className="form-outline mb-4">

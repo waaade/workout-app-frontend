@@ -56,7 +56,7 @@ const WorkoutView = (token, id) => {
         WorkoutExercisesApi.getWorkoutExercisesById(id, setWorkoutExerciseList, token);
        
 
-    }, [token] )
+    }, [] )
 
     function handleDelete(id) {
         const newList = workoutExerciseList.filter((item) => item.id !== id);

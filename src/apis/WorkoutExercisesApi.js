@@ -26,19 +26,20 @@ const WorkoutExercisesApi = {
         const authString = "Bearer " + (token.token.jwt).toString();
         console.log(authString);
         fetch(request, {
+            mode: 'no-cors',
             headers: { 
                  "Content-Type": "application/json",
                  "Authorization": authString}
         })
         .then(response => {
                 if (response.status === 404) {
-                    console.log(`WorkoutExercise with ID ${id} not found`);
+                    console.log(`WorkoutExercises with ID ${id} not found`);
                 } else {
-                    return response.json();
+                    response.json();
                 }
             })
             .then(data => {
-                console.log("WORKOUT EXERCISE RETRIEVED")
+                console.log("WORKOUT EXERCISES RETRIEVED")
                 console.log(data)
                 setWorkoutExercise(data)
             })
