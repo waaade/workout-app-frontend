@@ -50,9 +50,11 @@ const WorkoutExercisesApi = {
         const authString = "Bearer " + (token.token.jwt).toString();
         console.log(authString);
         fetch(request, {
+            method: "POST",
             headers: { 
                  "Content-Type": "application/json",
-                 "Authorization": authString}
+                 "Authorization": authString},
+            body: JSON.stringify(workoutExerciseToCreate)
         })
         .then( result => result.json() )
         .then( data => {

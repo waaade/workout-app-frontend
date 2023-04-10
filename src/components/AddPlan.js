@@ -3,43 +3,49 @@ import WorkoutApi from '../apis/WorkoutApi';
 import ExercisesApi from '../apis/ExercisesApi';
 import WorkoutExerciseApi from '../apis/WorkoutExercisesApi';
 
-const AddPlan = (token) => {
+const AddPlan = (token, userId) => {
     // console.log(JSON.stringify(token));
     const [exercise, setExercise ] = useState("")
     const [exerciseList, setExerciseList] = useState([])
-    const [workout, setWorkout] = useState("") // a workout will often have multiple exercises
-    const [userWorkoutList, setUserWorkoutList] = useState([]) // user needs to choose which workout
+    const [workout, setWorkout] = useState("new") // needs to choose a workout to add to, or create new (default)
+    const [userWorkoutList, setUserWorkoutList] = useState([]) // list of existing workouts
     const [reps, setReps] = useState(0)
     const [weight, setWeight] = useState(0)
     const [date, setDate] = useState("")
 
     useEffect( () => {
-    
        // populate exericse field
         ExercisesApi.getAllExercises(setExerciseList, token);
 
         // populate workout field so that user can add to one or create new workout
         WorkoutApi.getAllUserWorkouts(setUserWorkoutList, token);
-       
+
     }, [token] )
     
 
     // called when form is submitted
-    // TODO
+    
     const handleSubmit = (event) => { // event -> represents the event of submitting the form
-        const workout = {
-            "exerciseId": exercise,
-            "userWorkoutId": 9, // TODO we need to get this first
+        // create new workout in UserWorkout
+        const theUser = 2; 
+        if (workout === "new") {
+            const userWorkoutToPost = {
+                "userId": theUser,
+                "workoutDate": date
+            }
+
+            console.log(userWorkoutToPost);
+            WorkoutApi.createWorkout(userWorkoutToPost, setWorkout, token)
+            
+        };
+        const exerciseToPost = {
+            "workoutId": workout,
             "reps": reps,
-            "weight": weight,
+            "weight": weight
         }
-        //"date": date,
-        //"userId": 2      TODO
+        console.log(exerciseToPost);
+        WorkoutExerciseApi.createWorkoutExercise(exerciseToPost, token);
 
-        // make a POST request here to create the workout
-        WorkoutExerciseApi.createWorkoutExercise(workout, token);
-
-        // stop the page from refreshing/reloading when submitting the form
         event.preventDefault()
     }
 
@@ -60,7 +66,10 @@ const AddPlan = (token) => {
                            onChange={ (event) => { setWorkout(event.target.value) } }>
                             <option value='new'>Create New Workout</option>
                             {userWorkoutList.map( w =>
-                                <option value={w.id}>Workout {w.workoutid} on {w.workoutDate}</option>)
+                                <option key={w.workoutid} 
+                                value={w}>
+                                    Workout {w.workoutid} on {`${w.workoutDate[2]}-${w.workoutDate[1]}-${w.workoutDate[0]}`}
+                                </option>)
                             }
                            </select>
                 </div>
@@ -75,7 +84,7 @@ const AddPlan = (token) => {
                            name="wo-exercise"
                            onChange={ (event) => { setExercise(event.target.value) } }>
                             {exerciseList.map( e =>
-                                <option value={e.id}>{e.exerciseType}</option>)
+                                <option key={e.id} value={e.id}>{e.exerciseType}</option>)
                             }
                            </select>
                 </div>

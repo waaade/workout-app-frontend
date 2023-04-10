@@ -2,7 +2,7 @@ const URI = "http://localhost:8080/api"
 
 const WorkoutApi = {
 
-    getAllUserWorkouts: (setWorkoutList, token) => {
+    getAllUserWorkouts: (setWorkoutList, token, userId) => {
         const request = URI + "/userWorkouts";
         const authString = "Bearer " + (token.token.jwt).toString();
         console.log(authString);
@@ -35,10 +35,10 @@ const WorkoutApi = {
         .catch(error => console.error(error));
     },
     
-    createWorkout: (workoutToCreate, token) => {
+    createWorkout: (workoutToCreate, setWorkout, token) => {
         const authString = "Bearer " + (token.token.jwt).toString();
         // fetch( uri for request, request object )
-        // TODO make sure to change this to handle username also
+        
         fetch(`${URI}/userWorkouts`, {
             method: "POST", // type of request
             headers: { "Content-Type": "application/json",
@@ -49,13 +49,12 @@ const WorkoutApi = {
             .then( data => {
                 console.log("WORKOUT CREATED")
                 console.log(data)
-
+                setWorkout(data)
                  // the workout was created, so we alert the user
                 alert("Your workout was created!" + 
-                    `\nID: ${data.id}` +
-                    `\nExercise: ${data.exercise}` + 
-                    `\nReps: ${data.reps}` +
-                    `\nWeight: ${data.weight}`
+                    `\nWorkoutId: ${data.workoutid}` +
+                    `\nUserID: ${data.userId.id}` + 
+                    `\nDate: ${data.workoutDate}`
                     )
 
             } )
@@ -63,7 +62,7 @@ const WorkoutApi = {
 
     },
 
-    // TODO make sure to change this to handle username also
+    
     deleteWorkout: (workoutId, token) => {
         const authString = "Bearer " + (token.token.jwt).toString();
         fetch(`${URI}/userWorkouts/${workoutId}`, {
@@ -85,7 +84,7 @@ const WorkoutApi = {
         });
     },
       
-    // TODO make sure to change this to handle username also
+    
     updateWorkout: (workoutToUpdate, token) => {
         const authString = "Bearer " + (token.token.jwt).toString();
         fetch(`${URI}/userWorkouts/${workoutToUpdate.id}`, {
