@@ -21,8 +21,8 @@ const WorkoutExercisesApi = {
             .catch(error => console.error(error));
     },
 
-    getWorkoutExerciseById: (id, setWorkoutExercise, token) => {
-        const request = URI + "/workoutExercises/{id}";
+    getWorkoutExercisesById: (id, setWorkoutExercise, token) => {
+        const request = URI + `/workoutExercises/id/${id}`;
         const authString = "Bearer " + (token.token.jwt).toString();
         console.log(authString);
         fetch(request, {
@@ -65,7 +65,7 @@ const WorkoutExercisesApi = {
 
     // TODO make sure to change this to handle username also
     deleteWorkout: (workoutExerciseId, token) => {
-        const request = URI + "/workoutExercises/{workoutExerciseId}";
+        const request = URI + `/workoutExercises/${workoutExerciseId}`;
         const authString = "Bearer " + (token.token.jwt).toString();
         console.log(authString);
         fetch(request, {

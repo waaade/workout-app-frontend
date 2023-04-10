@@ -36,7 +36,7 @@ const workoutDummyList = [
     }
 ]
 
-const WorkoutView = (token) => {
+const WorkoutView = (token, id) => {
 
     // workoutList -> state variable
     // setWorkoutList -> function that changes the value of productList
@@ -52,11 +52,16 @@ const WorkoutView = (token) => {
         console.log("Hello, this component was mounted!")
 
         //WorkoutApi.getAllUserWorkouts(setWorkoutList, token);
-        WorkoutExercisesApi.getAllWorkoutsExercises(setWorkoutExerciseList, token);
+        // WorkoutExercisesApi.getAllWorkoutsExercises(setWorkoutExerciseList, token);
+        WorkoutExercisesApi.getWorkoutExercisesById(id, setWorkoutExerciseList, token);
        
 
     }, [token] )
 
+    function handleDelete(id) {
+        const newList = workoutExerciseList.filter((item) => item.id !== id);
+        setWorkoutExerciseList(newList);
+    }
 
 
 
@@ -114,13 +119,13 @@ const WorkoutView = (token) => {
                     workoutExerciseList.map( e => 
                     <tr key={e.id}>
                     <td>{e.workoutId.workoutid}</td>
-                    <td>{e.workoutId.workoutDate}</td>
+                    <td>{`${e.workoutId.workoutDate[2]}-${e.workoutId.workoutDate[1]}-${e.workoutId.workoutDate[0]}`}</td>
                     <td>{e.id}</td>
                     <td>{e.exerciseId.exerciseType}</td>
                     <td>{e.reps}</td>
                     <td>{e.weight}</td>
                     <td>
-                        <button className="btn btn-danger">
+                        <button className="btn btn-danger" onClick={() => handleDelete(e.id)}>
                             Delete
                         </button>
                         <button className='btn btn-primary'>
