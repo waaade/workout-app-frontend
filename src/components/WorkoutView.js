@@ -2,40 +2,6 @@ import React, { useEffect, useState } from 'react';
 import WorkoutApi from '../apis/WorkoutApi';
 import WorkoutExercisesApi from '../apis/WorkoutExercisesApi';
 
-// UserWorkout table dummy
-const workoutDummyList = [
-    {
-        "workoutId": 1,
-        "workout": {
-            "exercise": "Bench press",
-            "reps": 30,
-            "weight": 200
-        },
-        "workoutDate": "05/06/2023",
-        "username": "Joe",
-    },
-    {
-        "workoutId": 2,
-        "workout": {
-            "exercise": "Squats",
-            "reps": 30,
-            "weight": 300
-        },
-        "workoutDate": "05/04/2023",
-        "username": "Joe",
-    },
-    {
-          "workoutId": 3,
-          "workout": {
-            "exercise": "Power clean",
-            "reps": 30,
-            "weight": 150
-        },
-        "workoutDate": "05/06/2023",
-        "username": "Joe",
-    }
-]
-
 const WorkoutView = (token, id) => {
 
     // workoutList -> state variable
@@ -52,8 +18,8 @@ const WorkoutView = (token, id) => {
         console.log("Hello, this component was mounted!")
 
         //WorkoutApi.getAllUserWorkouts(setWorkoutList, token);
-        // WorkoutExercisesApi.getAllWorkoutsExercises(setWorkoutExerciseList, token);
-        WorkoutExercisesApi.getWorkoutExercisesById(id, setWorkoutExerciseList, token);
+        WorkoutExercisesApi.getAllWorkoutsExercises(setWorkoutExerciseList, token);
+        // WorkoutExercisesApi.getWorkoutExercisesById(id, setWorkoutExerciseList, token);
        
 
     }, [] )

@@ -2,16 +2,15 @@ import React, { useEffect, useState } from 'react';
 import WorkoutApi from '../apis/WorkoutApi';
 
 
-const Home = (token) => {
+const Home = (token, userId) => {
     const [userWorkouts, setUserWorkouts] = useState([]);
     const [currentUW, setCurrentUW] = useState(0);
 
     // Get a list of all the userWorkouts
     useEffect(() => {
-        
         WorkoutApi.getAllUserWorkouts(setUserWorkouts, token)
 
-    }, [])
+    }, [token])
 
     // After the list of userWorkouts is collected, count the workouts made by the currently signed in user
     useEffect(() => {
@@ -22,7 +21,7 @@ const Home = (token) => {
             setCurrentUW(currentUsersUserWorkouts.length);
         }
 
-    }, [userWorkouts])
+    }, [userWorkouts, token, userId])
 
     return (
         <div style={{marginTop: '10px'}}>

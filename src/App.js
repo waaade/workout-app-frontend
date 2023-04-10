@@ -11,7 +11,6 @@ import './App.css';
 
 function App() {
   const [token, setToken] = useState('');
-  // const {token, setToken} = useToken();
   const [userId, setUserId] = useState(0);
   const [name, setName] = useState('');
   if (!token){
@@ -22,8 +21,8 @@ function App() {
       <Header/>
       <Routes>
         <Route path="/" element={ <Home token={token} name={name} userId={userId} /> } exact />
-        <Route path="/workouts" element={ <WorkoutView token={token} id={userId}/> } />
-        <Route path="/add" element={ <AddPlan token={token}/> } />
+        <Route path="/workouts" element={ <WorkoutView token={token} userId={userId}/> } />
+        <Route path="/add" element={ <AddPlan token={token} userId={userId}/> } />
         
       </Routes>
     </div>
