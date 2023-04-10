@@ -38,13 +38,16 @@ const AddPlan = (token, userId) => {
             WorkoutApi.createWorkout(userWorkoutToPost, setWorkout, token)
             
         };
+        console.log(exercise);
+        console.log(workout);
         const exerciseToPost = {
+            "exerciseId": exercise,
             "workoutId": workout,
             "reps": reps,
             "weight": weight
         }
-        console.log(exerciseToPost);
-        WorkoutExerciseApi.createWorkoutExercise(exerciseToPost, token);
+        // console.log(exerciseToPost);
+        //WorkoutExerciseApi.createWorkoutExercise(exerciseToPost, token);
 
         event.preventDefault()
     }
@@ -73,6 +76,20 @@ const AddPlan = (token, userId) => {
                             }
                            </select>
                 </div>
+                { workout === "new" && ( // don't pick date here if not new workout
+                    <div>
+                            <label htmlFor='wo-date' className='form-label' >
+                        Date
+                    </label>
+                    <input type="date"
+                           className='form-control'
+                           id='wo-date'
+                           required
+                           name="wo-weight"
+                           value={date}
+                           onChange={ (event) => setDate(event.target.value) }
+                           /> 
+                </div>)} 
                 <div>
                     <label htmlFor='wo-exercise' className='form-label' >
                         Exercise
@@ -84,7 +101,7 @@ const AddPlan = (token, userId) => {
                            name="wo-exercise"
                            onChange={ (event) => { setExercise(event.target.value) } }>
                             {exerciseList.map( e =>
-                                <option key={e.id} value={e.id}>{e.exerciseType}</option>)
+                                <option key={e.id} value={e}>{e.exerciseType}</option>)
                             }
                            </select>
                 </div>
@@ -120,21 +137,6 @@ const AddPlan = (token, userId) => {
                            />
                 </div>
 
-                
-                    { workout === "new" && ( // don't pick date here if not new workout
-                    <div>
-                            <label htmlFor='wo-date' className='form-label' >
-                        Date
-                    </label>
-                    <input type="date"
-                           className='form-control'
-                           id='wo-date'
-                           required
-                           name="wo-weight"
-                           value={date}
-                           onChange={ (event) => setDate(event.target.value) }
-                           /> 
-                </div>)} 
                     
 
                 <button type="submit" className="btn btn-primary">
